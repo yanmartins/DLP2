@@ -24,7 +24,7 @@ begin
           a(3 downto 0) & a(63 downto 4) when "000100",
           a(4 downto 0) & a(63 downto 5) when "000101",
           a(5 downto 0) & a(63 downto 6) when "000110",
-			 a(6 downto 0) & a(63 downto 7) when "000111",
+	  a(6 downto 0) & a(63 downto 7) when "000111",
           a(7 downto 0) & a(63 downto 8) when "001000",
           a(8 downto 0) & a(63 downto 9) when "001001",
           a(9 downto 0) & a(63 downto 10) when "001010",
@@ -87,11 +87,11 @@ begin
          a                         when "000000",
          (63 downto 63 => '0') & a(63 downto 1) when "000001",
          (63 downto 62 => '0') & a(63 downto 2) when "000010",
-			(63 downto 61 => '0') & a(63 downto 3) when "000011",
-			(63 downto 60 => '0') & a(63 downto 4) when "000100",
+	 (63 downto 61 => '0') & a(63 downto 3) when "000011",
+	 (63 downto 60 => '0') & a(63 downto 4) when "000100",
          (63 downto 59 => '0') & a(63 downto 5) when "000101",
          (63 downto 58 => '0') & a(63 downto 6) when "000110",
-			(63 downto 57 => '0') & a(63 downto 7) when "000111",
+	 (63 downto 57 => '0') & a(63 downto 7) when "000111",
          (63 downto 56 => '0') & a(63 downto 8) when "001000",
          (63 downto 55 => '0') & a(63 downto 9) when "001001",
          (63 downto 54 => '0') & a(63 downto 10) when "001010",
@@ -151,14 +151,14 @@ begin
 
    with amt select
       arith_result<=
-			a                         when "000000",
+	 a                         when "000000",
          (63 downto 63 => a(63)) & a(63 downto 1) when "000001",
          (63 downto 62 => a(63)) & a(63 downto 2) when "000010",
-			(63 downto 61 => a(63)) & a(63 downto 3) when "000011",
-			(63 downto 60 => a(63)) & a(63 downto 4) when "000100",
+	 (63 downto 61 => a(63)) & a(63 downto 3) when "000011",
+	 (63 downto 60 => a(63)) & a(63 downto 4) when "000100",
          (63 downto 59 => a(63)) & a(63 downto 5) when "000101",
          (63 downto 58 => a(63)) & a(63 downto 6) when "000110",
-			(63 downto 57 => a(63)) & a(63 downto 7) when "000111",
+	 (63 downto 57 => a(63)) & a(63 downto 7) when "000111",
          (63 downto 56 => a(63)) & a(63 downto 8) when "001000",
          (63 downto 55 => a(63)) & a(63 downto 9) when "001001",
          (63 downto 54 => a(63)) & a(63 downto 10) when "001010",
@@ -241,7 +241,7 @@ begin
           shift_in(3 downto 0) & a(63 downto 4) when "000100",
           shift_in(4 downto 0) & a(63 downto 5) when "000101",
           shift_in(5 downto 0) & a(63 downto 6) when "000110",
-			 shift_in(6 downto 0) & a(63 downto 7) when "000111",
+	  shift_in(6 downto 0) & a(63 downto 7) when "000111",
           shift_in(7 downto 0) & a(63 downto 8) when "001000",
           shift_in(8 downto 0) & a(63 downto 9) when "001001",
           shift_in(9 downto 0) & a(63 downto 10) when "001010",
@@ -310,10 +310,10 @@ architecture multi_level_arch of shift3mode is
    signal le0_sin: std_logic;
    signal le1_sin: std_logic_vector(1 downto 0);
    signal le2_sin: std_logic_vector(3 downto 0);
-	signal le3_sin: std_logic_vector(7 downto 0);
-	signal le4_sin: std_logic_vector(15 downto 0);
-	signal le5_sin: std_logic_vector(31 downto 0);
-	signal le6_sin: std_logic_vector(63 downto 0);
+   signal le3_sin: std_logic_vector(7 downto 0);
+   signal le4_sin: std_logic_vector(15 downto 0);
+   signal le5_sin: std_logic_vector(31 downto 0);
+   signal le6_sin: std_logic_vector(63 downto 0);
 begin
    -- level 0, shift 0 or 1 bit
    with lar select
@@ -343,7 +343,7 @@ begin
 	
 	
 	-- level 3, shift 0 or 8 bits
-	with lar select
+   with lar select
       le3_sin <=
          "00000000" when "00",
          (others => le2_out(63)) when "01",
@@ -352,7 +352,7 @@ begin
    le3_out <= le3_sin & le2_out(63 downto 8) when amt(3)='1' else le2_out;
 	
 	-- level 4, shift 0 or 16 bits
-	with lar select
+   with lar select
       le4_sin <=
          "0000000000000000" when "00",
          (others => le3_out(63)) when "01",
@@ -361,7 +361,7 @@ begin
    le4_out <= le4_sin & le3_out(63 downto 16) when amt(4)='1' else le3_out;
 	
 	-- level 5, shift 0 or 32 bits
-	with lar select
+   with lar select
       le5_sin <=
          "00000000000000000000000000000000" when "00",
          (others => le4_out(63)) when "01",
@@ -384,11 +384,8 @@ begin
 end multi_level_arch ;
 
 configuration config of shift3mode is
-
 	--for direct_arch
 	--for shared_arch
 	for multi_level_arch
-	
-	end for;
-	
+	end for;	
 end configuration;
