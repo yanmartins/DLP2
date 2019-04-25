@@ -7,7 +7,7 @@ entity shift3mode is
    port(
       a: in std_logic_vector(63 downto 0);
       lar: in std_logic_vector(1 downto 0);
-      amt: in std_logic_vector(6 downto 0);
+      amt: in std_logic_vector(5 downto 0);
       y: out std_logic_vector(63 downto 0)
    );
 end shift3mode ;
@@ -305,7 +305,7 @@ end shared_arch;
 -- Listing 7.29
 --=============================
 architecture multi_level_arch of shift3mode is
-   signal le0_out, le1_out, le2_out, le3_out, le4_out, le5_out, le6_out:std_logic_vector(63 downto 0);
+   signal le0_out, le1_out, le2_out, le3_out, le4_out, le5_out:std_logic_vector(63 downto 0);
 	
    signal le0_sin: std_logic;
    signal le1_sin: std_logic_vector(1 downto 0);
@@ -313,7 +313,7 @@ architecture multi_level_arch of shift3mode is
    signal le3_sin: std_logic_vector(7 downto 0);
    signal le4_sin: std_logic_vector(15 downto 0);
    signal le5_sin: std_logic_vector(31 downto 0);
-   signal le6_sin: std_logic_vector(63 downto 0);
+
 begin
    -- level 0, shift 0 or 1 bit
    with lar select
@@ -368,17 +368,7 @@ begin
          le4_out(31 downto 0)    when others;
 			
    le5_out <= le5_sin & le4_out(63 downto 32) when amt(5)='1' else le4_out;
-	
-	-- level 6, shift 0 or 64 bits
---	with lar select
---      le6_sin <=
---         "0000000000000000000000000000000000000000000000000000000000000000" when "00",
---         (others => le5_out(63)) when "01",
---         le5_out(63 downto 0)    when others;
---			
---   le6_out <= le6_sin & le5_out(63 downto 63) when amt(6)='1' else le5_out;
-	
-   -- output
+
    y <= le5_out;
 	
 end multi_level_arch ;
