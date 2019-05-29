@@ -34,10 +34,10 @@ begin
    end process;
 	
    -- next-state logic
-   r_next <= (others=>'0') when r_reg=9999 else
+   r_next <= (others=>'0') when r_reg=99 else
              r_reg + 1;
    -- output logic
-   cclk <= '1' when r_reg < 5000 else
+   cclk <= '1' when r_reg < 50 else
            '0';
 			  
 			  
@@ -127,9 +127,9 @@ begin
       end if;
    end process;
    -- next-state logic/output logic for mod-1000000 counter
-   r_next <= (others=>'0') when r_reg=9999 else
+   r_next <= (others=>'0') when r_reg=99 else
              r_reg + 1;	 
-	c_en <= '1' when r_reg = 5000 else
+	c_en <= '1' when r_reg = 50 else
            '0';
 			  
 			  
